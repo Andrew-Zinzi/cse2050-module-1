@@ -26,4 +26,8 @@ class Store:
             self.customers.append(customer.id)
             return True
         
-    
+    def find_customer(self, customer: Customer):
+        if customer.id in self.customers:
+            return customer
+        else:
+            return None
