@@ -12,3 +12,9 @@ class Store:
         else:
             self.products.append(product.id)
             return True
+    
+    def find_product(self, product: Product):
+        if product.id in self.products:
+            return product
+        else:
+            return None
