@@ -18,3 +18,12 @@ class Store:
             return product
         else:
             return None
+    
+    def add_customer(self, customer: Customer):
+        if customer.id in self.customers:                
+            return False
+        else:
+            self.customers.append(customer.id)
+            return True
+        
+    
