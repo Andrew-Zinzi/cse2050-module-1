@@ -1,5 +1,5 @@
 class Customer:
-    def __init__(self, customer_id: str, name: str, cart: ShoppingCart):
+    def __init__(self, customer_id: str, name: str, cart):
         self.customer_id = customer_id
         self.name = name
         self.cart = cart
