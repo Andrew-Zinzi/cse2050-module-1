@@ -9,10 +9,13 @@ class ShoppingCart:
         self.items.append(product)
         
     def remove_product(self, product_id: str):
-        """Find item in list remove if exists return true/false if successful"""
+        """Remove product by ID return True if removed, otherwise False"""
         for item in self.items:
-            if item.get_id == product_id:
+            if item.get_id() == product_id:
                 self.items.remove(item)
+                return True
+        
+        return False
         
     def get_items(self):
         """Return list of all items in cart"""
