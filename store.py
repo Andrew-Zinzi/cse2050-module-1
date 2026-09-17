@@ -17,7 +17,7 @@ class Store:
     def find_product(self, product_id: str):
         """Find and return a Product by ID; return None when not found"""
         for item in self.products:
-            if item.get_id() == self.products_id:
+            if item.get_id() == product_id:
                 return item
             
         return None
