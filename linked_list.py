@@ -17,7 +17,8 @@ class LinkedList:
         else:
             node.next = self._head
             self._head = node
-        self._len =+ 1
+            
+        self._len += 1
 
     def add_last(self, item):
         """Add an item to the end of the linked list."""
@@ -27,7 +28,7 @@ class LinkedList:
         else:
             self._tail.next = node
             self._tail = node
-            self._len =+ 1
+            self._len += 1
     
     def remove_first(self):
         """Remove and return the first item in the list, or None if empty."""
