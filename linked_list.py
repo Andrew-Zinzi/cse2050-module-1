@@ -1,59 +1,62 @@
 from node import Node
-class LinkedList():
+class LinkedList:
+    """Singly linked list implementation maintaining head and tail references."""
+    
     def __init__(self):
-        self.head = None
-        self.tail = None
-        self.size = 0
+        """Initialize an empty linked list."""
+        self._head = None
+        self._tail = None
+        self._len = 0
 
     def add_first(self, item):
-        if self.size == 0:
-            self.head = Node(item)
-            self.tail = self.head
+        """Add an item to the front of the linked list."""
+        node = Node(item)
+        if self._len == 0:
+            self._head = node
+            self._tail = self._head
         else:
-            newHead = Node(item, self.head)
-            self.head = newHead
-        self.size =+ 1
+            node.next = self._head
+            self._head = node
+        self._len =+ 1
 
     def add_last(self, item):
-        if self.size == 0:
-            self.tail = Node(item)
-            self.head = self.tail
+        """Add an item to the end of the linked list."""
+        node = Node(item)
+        if self._len == 0:
+            self.add_first(item)
         else:
-            newTail = Node(item, self.tail)
-            self.tail = newTail
-        self.size =+ 1
+            self.tail.next = node
+            self._tail = node
+            self._len =+ 1
     
     def remove_first(self):
-        if self.size == 0:
+        """Remove and return the first item in the list, or None if empty."""
+        if self._head is None: 
             return None
         
-        elif self.size == 1:
-            removeHead = self.head
-            removeTail = self.tail
-            self.head = self.head.next
-            removeHead.next = None
-            self.tail = self.tail.next
-            self.size =- 1
-            return removeHead, removeHead.data
-
+        data = self._head.data
+        self._head = self._head.next
+        self._len -= 1
         
-        else:
-            removeHead = self.head
-            self.head = self.head.next
-            removeHead.next = None
-            self.size =- 1
-            return removeHead, removeHead.data
+        if self._head is None:
+            self._tail = None
+        
+        return data
+            
     def get_first(self):
-        if self.size == 0:
+        """Return the first item in the list without removing it."""
+        if self._len == 0:
             return None
         else:
-            return self.head, self.head.data
+            return self.head.data
 
     def is_empty(self):
-        return self.size == 0
+        """Return True if the linked list contains no items."""
+        return self._len == 0
 
     def size(self):
-        return self.size
+        """Return the number of items in the linked list."""
+        return self._len
     
         
 
