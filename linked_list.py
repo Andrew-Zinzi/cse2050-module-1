@@ -25,7 +25,7 @@ class LinkedList:
         if self._len == 0:
             self.add_first(item)
         else:
-            self.tail.next = node
+            self._tail.next = node
             self._tail = node
             self._len =+ 1
     
@@ -48,7 +48,7 @@ class LinkedList:
         if self._len == 0:
             return None
         else:
-            return self.head.data
+            return self._head.data
 
     def is_empty(self):
         """Return True if the linked list contains no items."""
