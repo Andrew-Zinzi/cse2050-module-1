@@ -1,6 +1,7 @@
 from order_queue import OrderQueue
 from stack import Stack
 from order import Order
+from algorithms import *
 
 class Store:
     """Represents the marketplace managing products, customers, and orders."""
@@ -95,3 +96,24 @@ class Store:
             self.order_history.push(temp_stack.pop())
             
         return history_list
+    
+    def bubble_sort_products(self):
+        bubble_sort(self.products)
+        
+    def selection_sort_products(self):
+        selection_sort(self.products)
+        
+    def insertion_sort_products(self):
+        insertion_sort(self.products)
+        
+    def binary_search_product(self, product_id:str):
+        index = binary_search(self.products, product_id)
+        if index == -1: return None
+        bubble_sort(self.products)
+        return self.products[index]
+    
+    def recursive_catalog_total(self):
+        return recursive_total_price(self.products)
+    
+    def calculate_change(self, coins: list[int], amount:int):
+        return fewest_coins(coins, amount)

@@ -60,7 +60,7 @@ def fewest_coins(coins: list[int], amount: int, memo: dict = None) -> int:
 
 def binary_search(products, product_id, low=0, high=None):
     if high is None: high = len(products) - 1
-    if low > high: return - 1
+    if low > high: return -1
     mid = (low + high) // 2
     mid_id = products[mid].get_id()
     if product_id == mid_id:
