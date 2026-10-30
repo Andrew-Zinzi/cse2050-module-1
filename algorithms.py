@@ -1,10 +1,8 @@
-
-def recursive_total_price(products):
+def recursive_total_price(products) -> float:
     if len(products) == 0:
         return 0.0
-
-    P = products.pop()
-    return P.price + recursive_total_price(products)
+    
+    return products[0].get_price() + recursive_total_price(products[1:])
 
 def bubble_sort(products): 
     p = len(products)
@@ -34,16 +32,28 @@ def insertion_sort(products):
             while j > 0 and products[j] < products[j-1]:
                 products[j], products[j-1] = products[j-1], products[j]
                 j -= 1
-
-def fewest_coins(coins,amount):
-    if amount in coins:
-        return 1
-    min_coins = float('inf')
+    
+def fewest_coins(coins: list[int], amount: int, memo: dict = None) -> int:
+    """Return the minimum number of coins needed to make amount using top-down memoization."""
+    if memo is None:
+        memo = {}
+    
+    if amount == 0:
+        return 0
+    if amount < 0:
+        return float("inf")
+    
+    if amount in memo:
+        return memo[amount]
+    
+    min_coins = float("inf")
+    
     for coin in coins:
-        if coin < amount:
-            branch = 1 + fewest_coins(coins, amount - coin)
-            if branch < min_coins:
-                min_coins = branch
+        result = fewest_coins(coins, amount - coin, memo)
+        if result != float('inf'):
+            min_coins = min(min_coins, result + 1)
+            
+    memo[amount] = min_coins
     return min_coins
 
 def binary_search(products, product_id):
