@@ -55,6 +55,10 @@ def fewest_coins(coins: list[int], amount: int, memo: dict = None) -> int:
         if result != float('inf'):
             min_coins = min(min_coins, result + 1)
             
+    if min_coins == float("inf"):
+        memo[amount] = -1
+        return -1        
+    
     memo[amount] = min_coins
     return min_coins
 
