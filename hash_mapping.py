@@ -4,7 +4,7 @@ class HashMapping:
     """Implement the Mapping ADT with buckets, separate chaining, and rehashing"""
     def __init__(self, size=2):
         self.size = size
-        self.buckets = [[] for i in range(self.size)]
+        self.buckets = [[] for _ in range(self.size)]
         self.count = 0
         
     def put(self, key, value):
@@ -16,13 +16,13 @@ class HashMapping:
         bucket_index = hash(key) % self.size
         bucket = self.buckets[bucket_index]
         
-        for entry in self.buckets:
+        for entry in bucket:
             if entry.key == key:
                 entry.value = value
                 return
             
         bucket.append(Entry(key, value))
-        count += 1
+        self.count += 1
         
     def get(self, key):
         """Return the value associated with key, raise KeyError if not found"""
@@ -50,7 +50,7 @@ class HashMapping:
     def rehash(self):
         old_buckets = self.buckets
         self.size *= 2
-        self.buckets = [[] for i in range(self.size)]
+        self.buckets = [[] for _ in range(self.size)]
         self.count = 0
         
         for bucket in old_buckets:

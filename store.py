@@ -120,3 +120,15 @@ class Store:
     
     def calculate_change(self, coins: list[int], amount:int):
         return fewest_coins(coins, amount)
+    
+    def merge_sort_products(self):
+        """Call merge_sort from algorithms.py to sort products in place[cite: 5]."""
+        merge_sort(self.products)
+
+    def quick_sort_products(self):
+        """Call quick_sort from algorithms.py to sort products in place[cite: 5]."""
+        quick_sort(self.products)
+
+    def quick_select_product(self, k: int):
+        """Call quick_select from algorithms.py and return the Product at rank k[cite: 5, 6]."""
+        return quick_select(self.products, k)

@@ -10,6 +10,7 @@ def merge(A,B,products):
             products[i+j] = B[j]
             j = j + 1
     products[i+j:] = A[i:] + B[j:]
+    
 def mergesort(products):
     if len(products) < 2:
         return None

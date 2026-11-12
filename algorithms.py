@@ -77,56 +77,60 @@ def binary_search(products, product_id, low=0, high=None):
 
 
 def merge(A,B,products):
-    i = 0
-    j = 0
+    i = j = 0
     while i < len(A) and j < len(B):
-        if A[i] < B[j]:
+        if A[i].get_id() < B[j].get_id():
             products[i+j] = A[i]
-            i = i + 1
+            i += 1
         else:
             products[i+j] = B[j]
             j = j + 1
     products[i+j:] = A[i:] + B[j:]
-def mergesort(products):
+    
+def merge_sort(products):
     if len(products) < 2:
         return None
     mid = len(products) // 2
     A = products[:mid]
     B = products[mid:]
-    mergesort(A)
-    mergesort(B)
+    merge_sort(A)
+    merge_sort(B)
     merge(A,B,products)
 
-def partition(products, i, j):
-    pivot = j - 1
-    j = pivot - 1
-    while i < j:
-        while products[i] < products[pivot]:
-            i = i + 1
-        while i < j and products[j] >= products[pivot]:
-            j = j - 1
-        if i < j:
+def partition(products, left, right):
+    pivot_id = products[right].get_id()
+    i = left - 1
+    for j in range(left, right):
+        if products[j].get_id() < pivot_id:
+            i += 1
             products[i], products[j] = products[j], products[i]
-    if products[i] > products[pivot]:
-        products[pivot], products[i] = products[i], products[pivot]
-        pivot = i
-    return pivot
+    products[i + 1], products[right] = products[right], products[i + 1]
+    return i + 1
 
-def quicksort(products, left, right):
-    if right - left <= 1: return None
-
-    pivot = partition(products, left, right)
-    quicksort(products, left, pivot)
-    quicksort(products, pivot + 1, right)
-
-def quickselect(products, k):
-    left, right = 0, len(products)
-    while left < right:
+def quick_sort(products, left=0, right=None):
+    if right is None:
+        right = len(products) - 1
+    if left < right:
         pivot = partition(products, left, right)
-        if k <= pivot:
-            right = pivot
-        elif k == pivot + 1:
-            return products[pivot]
-        else:
-            left = pivot + 1
-    return products[left]
+        quick_sort(products, left, pivot - 1)
+        quick_sort(products, pivot + 1, right)
+
+def quick_select(products, k, left=0, right=None):
+    if right is None:
+        right = len(products) - 1
+    
+    if k < 1 or k > len(products):
+        return None
+    
+    if left <= right:
+        pivot_index = partition(products, left, right)
+        rank = pivot_index + 1
+    
+    if rank == k:
+        return products[pivot_index]
+    elif k < rank:
+        return quick_select(products, k, left, pivot_index - 1)
+    else:
+        return quick_select(products, k, pivot_index + 1, right) 
+    
+    return None
