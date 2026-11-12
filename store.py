@@ -2,6 +2,7 @@ from order_queue import OrderQueue
 from stack import Stack
 from order import Order
 from algorithms import *
+from hash_mapping import HashMapping
 
 class Store:
     """Represents the marketplace managing products, customers, and orders."""
@@ -14,20 +15,22 @@ class Store:
         self.order_queue = OrderQueue()
         self.order_history = Stack()
         self.order_counter = 0
+        self.product_map = HashMapping()
     
     def add_product(self, product) -> bool:
         """Add a product to the store if its ID is unique."""
         if self.find_product(product.get_id()) is not None:
             return False
         self.products.append(product)
+        self.product_map.put(product.get_id(), product)
         return True
     
     def find_product(self, product_id: str):
-        """Find and return a Product by ID, or None if not found."""
-        for item in self.products:
-            if item.get_id() == product_id: 
-                return item
-        return None
+        """Use the Store HashMapping to find and return the Product instantly."""
+        try:
+            return self.product_map.get(product_id)
+        except KeyError:
+            return None
     
     def add_customer(self, customer) -> bool:
         """Add a customer to the store if its ID is unique."""
